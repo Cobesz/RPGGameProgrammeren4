@@ -15,9 +15,9 @@ var Game = (function () {
         this.canvas.width = Game.width;
         this.canvas.height = Game.height;
         this.context = this.canvas.getContext('2d');
-        requestAnimationFrame(function () { return _this.update(); });
         this.hero = new Hero();
         this.map = new Map();
+        requestAnimationFrame(function () { return _this.update(); });
     }
     Game.prototype.update = function () {
         var _this = this;
@@ -47,6 +47,24 @@ window.addEventListener("load", function () {
 var GameObject = (function () {
     function GameObject() {
     }
+    Object.defineProperty(GameObject.prototype, "x", {
+        get: function () { return this._x; },
+        set: function (value) { this._x = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(GameObject.prototype, "y", {
+        get: function () { return this._y; },
+        set: function (value) { this._y = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(GameObject.prototype, "speed", {
+        get: function () { return this._speed; },
+        set: function (value) { this._speed = value; },
+        enumerable: true,
+        configurable: true
+    });
     GameObject.prototype.draw = function () {
         Game.getInstance().context.drawImage(this.sprite, this.x, this.y);
     };
@@ -61,6 +79,7 @@ var Hero = (function (_super) {
         _this.x = 0;
         _this.y = 0;
         _this.speed = 5;
+        _this.behavior = new Moving(_this);
         _this.spriteUp1 = new Image(100, 200);
         _this.spriteUp2 = new Image(100, 200);
         _this.spriteLeft1 = new Image(100, 200);
@@ -78,47 +97,8 @@ var Hero = (function (_super) {
         _this.spriteRight1.src = '../docs/images/heroright1.png';
         _this.spriteRight2.src = '../docs/images/heroright2.png';
         _this.sprite = _this.spriteDown1;
-        document.addEventListener('keydown', _this.move.bind(_this));
         return _this;
     }
-    Hero.prototype.move = function (event) {
-        if (event.keyCode == 37) {
-            this.x -= this.speed;
-            if (this.sprite === this.spriteLeft1) {
-                this.sprite = this.spriteLeft2;
-            }
-            else {
-                this.sprite = this.spriteLeft1;
-            }
-        }
-        else if (event.keyCode == 38) {
-            this.y -= this.speed;
-            if (this.sprite === this.spriteUp1) {
-                this.sprite = this.spriteUp2;
-            }
-            else {
-                this.sprite = this.spriteUp1;
-            }
-        }
-        else if (event.keyCode == 39) {
-            this.x += this.speed;
-            if (this.sprite === this.spriteRight1) {
-                this.sprite = this.spriteRight2;
-            }
-            else {
-                this.sprite = this.spriteRight1;
-            }
-        }
-        else if (event.keyCode == 40) {
-            this.y += this.speed;
-            if (this.sprite === this.spriteDown1) {
-                this.sprite = this.spriteDown2;
-            }
-            else {
-                this.sprite = this.spriteDown1;
-            }
-        }
-    };
     return Hero;
 }(GameObject));
 var Map = (function () {
@@ -135,5 +115,50 @@ var Map = (function () {
     Map.prototype.update = function () {
     };
     return Map;
+}());
+var Moving = (function () {
+    function Moving(h) {
+        this.hero = h;
+        document.addEventListener('keydown', this.doStuff.bind(this));
+    }
+    Moving.prototype.doStuff = function (event) {
+        if (event.keyCode == 37) {
+            this.hero.x -= this.hero.speed;
+            if (this.hero.sprite === this.hero.spriteLeft1) {
+                this.hero.sprite = this.hero.spriteLeft2;
+            }
+            else {
+                this.hero.sprite = this.hero.spriteLeft1;
+            }
+        }
+        else if (event.keyCode == 38) {
+            this.hero.y -= this.hero.speed;
+            if (this.hero.sprite === this.hero.spriteUp1) {
+                this.hero.sprite = this.hero.spriteUp2;
+            }
+            else {
+                this.hero.sprite = this.hero.spriteUp1;
+            }
+        }
+        else if (event.keyCode == 39) {
+            this.hero.x += this.hero.speed;
+            if (this.hero.sprite === this.hero.spriteRight1) {
+                this.hero.sprite = this.hero.spriteRight2;
+            }
+            else {
+                this.hero.sprite = this.hero.spriteRight1;
+            }
+        }
+        else if (event.keyCode == 40) {
+            this.hero.y += this.hero.speed;
+            if (this.hero.sprite === this.hero.spriteDown1) {
+                this.hero.sprite = this.hero.spriteDown2;
+            }
+            else {
+                this.hero.sprite = this.hero.spriteDown1;
+            }
+        }
+    };
+    return Moving;
 }());
 //# sourceMappingURL=main.js.map
