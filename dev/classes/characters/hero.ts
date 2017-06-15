@@ -150,6 +150,4 @@ class Hero extends GameObject implements Subject {
     unsubscribe(o: Observer) {
     }
 
-
-
 }
