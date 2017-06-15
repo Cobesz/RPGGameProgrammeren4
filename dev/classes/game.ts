@@ -28,6 +28,12 @@ class Game {
     private update(): void {
         this.hero.update();
 
+        //collision
+        if(Utils.checkCollision(this.hero, this.jelly)) {
+            console.log("Fuck you");
+        }
+
+
         this.draw();
         requestAnimationFrame(() => this.update());
     }
@@ -49,4 +55,7 @@ class Game {
         }
         return Game.instance;
     }
+
+
+
 }

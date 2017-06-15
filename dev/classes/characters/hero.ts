@@ -19,18 +19,20 @@ class Hero extends GameObject implements Subject {
         super();
         this.x = 0;
         this.y = 0;
+        this.width = 25;
+        this.height= 50;
         this.health = 10;
         this.behaviour = new Alive();
 
 
-        this.spriteUp1 = new Image(100, 200);
-        this.spriteUp2 = new Image(100, 200);
-        this.spriteLeft1 = new Image(100, 200);
-        this.spriteLeft2 = new Image(100, 200);
-        this.spriteDown1 = new Image(100, 200);
-        this.spriteDown2 = new Image(100, 200);
-        this.spriteRight1 = new Image(100, 200);
-        this.spriteRight2 = new Image(100, 200);
+        this.spriteUp1 = new Image(this.width, this.height);
+        this.spriteUp2 = new Image(this.width, this.height);
+        this.spriteLeft1 = new Image(this.width, this.height);
+        this.spriteLeft2 = new Image(this.width, this.height);
+        this.spriteDown1 = new Image(this.width, this.height);
+        this.spriteDown2 = new Image(this.width, this.height);
+        this.spriteRight1 = new Image(this.width, this.height);
+        this.spriteRight2 = new Image(this.width, this.height);
 
         this.spriteUp1.src = '../docs/images/heroup1.png';
         this.spriteUp2.src = '../docs/images/heroup2.png';

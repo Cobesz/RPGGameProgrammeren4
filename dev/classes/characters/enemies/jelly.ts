@@ -6,13 +6,15 @@ class Jelly extends Enemy {
 
         this.x = this.random * 2000;
         this.y = this.random * 2000;
+        this.width = 25;
+        this.height= 50;
         this.speedHorizontal = 5;
         this.health = 10;
         this.behaviour = new Alive();
 
-        this.spriteUp1 = new Image(100, 200);
-        this.spriteUp2 = new Image(100, 200);
-        
+        this.spriteUp1 = new Image(this.width, this.height);
+        this.spriteUp2 = new Image(this.width, this.height);
+
         this.spriteUp1.src = '../docs/images/jelly1.png';
         this.spriteUp2.src = '../docs/images/jelly2.png';
 
@@ -33,12 +35,6 @@ class Jelly extends Enemy {
 
 
     notify(x, y) {
-                // console.log(x);
-        // console.log(y);
-        console.log(this.random);
-
-
-
         if(x > 0){
             this.x -= this.random * 20;
 

@@ -1,6 +1,9 @@
-class GameObject implements IDrawable {
-    protected x: number;
-    protected y: number;
+abstract class GameObject implements IDrawable {
+    public x: number;
+    public y: number;
+    public width: number;
+    public height: number;
+
     protected speedHorizontal: number = 0;
     protected speedVertical : number = 0;
 
