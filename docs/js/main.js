@@ -23,6 +23,9 @@ var Game = (function () {
     Game.prototype.update = function () {
         var _this = this;
         this.hero.update();
+        if (Utils.checkCollision(this.hero, this.jelly)) {
+            console.log("Fuck you");
+        }
         this.draw();
         requestAnimationFrame(function () { return _this.update(); });
     };
@@ -86,10 +89,23 @@ var Map = (function () {
     };
     return Map;
 }());
+var Utils = (function () {
+    function Utils() {
+    }
+    Utils.checkCollision = function (g1, g2) {
+        return (g1.x < g2.x + g2.width &&
+            g1.x + g1.width > g2.x &&
+            g1.y < g2.y + g1.height &&
+            g1.height + g1.y > g2.y);
+    };
+    return Utils;
+}());
 var Enemy = (function (_super) {
     __extends(Enemy, _super);
     function Enemy() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.random = Math.random();
+        return _this;
     }
     Enemy.prototype.notify = function (x, y) {
     };
@@ -102,16 +118,18 @@ var Hero = (function (_super) {
         _this.observers = [];
         _this.x = 0;
         _this.y = 0;
+        _this.width = 25;
+        _this.height = 50;
         _this.health = 10;
         _this.behaviour = new Alive();
-        _this.spriteUp1 = new Image(100, 200);
-        _this.spriteUp2 = new Image(100, 200);
-        _this.spriteLeft1 = new Image(100, 200);
-        _this.spriteLeft2 = new Image(100, 200);
-        _this.spriteDown1 = new Image(100, 200);
-        _this.spriteDown2 = new Image(100, 200);
-        _this.spriteRight1 = new Image(100, 200);
-        _this.spriteRight2 = new Image(100, 200);
+        _this.spriteUp1 = new Image(_this.width, _this.height);
+        _this.spriteUp2 = new Image(_this.width, _this.height);
+        _this.spriteLeft1 = new Image(_this.width, _this.height);
+        _this.spriteLeft2 = new Image(_this.width, _this.height);
+        _this.spriteDown1 = new Image(_this.width, _this.height);
+        _this.spriteDown2 = new Image(_this.width, _this.height);
+        _this.spriteRight1 = new Image(_this.width, _this.height);
+        _this.spriteRight2 = new Image(_this.width, _this.height);
         _this.spriteUp1.src = '../docs/images/heroup1.png';
         _this.spriteUp2.src = '../docs/images/heroup2.png';
         _this.spriteLeft1.src = '../docs/images/heroleft1.png';
@@ -207,50 +225,62 @@ var Jelly = (function (_super) {
     function Jelly(h) {
         var _this = _super.call(this) || this;
         _this.hero = h;
-        _this.x = 20;
-        _this.y = 20;
+        _this.x = _this.random * 2000;
+        _this.y = _this.random * 2000;
+        _this.width = 25;
+        _this.height = 50;
         _this.speedHorizontal = 5;
         _this.health = 10;
         _this.behaviour = new Alive();
-        _this.spriteUp1 = new Image(100, 200);
-        _this.spriteUp2 = new Image(100, 200);
-        _this.spriteLeft1 = new Image(100, 200);
-        _this.spriteLeft2 = new Image(100, 200);
-        _this.spriteDown1 = new Image(100, 200);
-        _this.spriteDown2 = new Image(100, 200);
-        _this.spriteRight1 = new Image(100, 200);
-        _this.spriteRight2 = new Image(100, 200);
+        _this.spriteUp1 = new Image(_this.width, _this.height);
+        _this.spriteUp2 = new Image(_this.width, _this.height);
         _this.spriteUp1.src = '../docs/images/jelly1.png';
         _this.spriteUp2.src = '../docs/images/jelly2.png';
-        _this.spriteLeft1.src = '../docs/images/jelly1.png';
-        _this.spriteLeft2.src = '../docs/images/jelly2.png';
-        _this.spriteDown1.src = '../docs/images/jelly1.png';
-        _this.spriteDown2.src = '../docs/images/jelly2.png';
-        _this.spriteRight1.src = '../docs/images/jelly1.png';
-        _this.spriteRight2.src = '../docs/images/jelly2.png';
-        _this.sprite = _this.spriteDown1;
+        _this.sprite = _this.spriteUp1;
+        console.log(_this.sprite);
         _this.hero.subscribe(_this);
         _this.update();
         return _this;
     }
     Jelly.prototype.update = function () {
-        console.log("hij hier komen");
         this.behaviour.update(this.health);
     };
     Jelly.prototype.notify = function (x, y) {
-        var random = Math.random() * 20;
-        console.log(random);
         if (x > 0) {
-            this.x += random;
+            this.x -= this.random * 20;
+            if (this.sprite === this.spriteUp1) {
+                this.sprite = this.spriteUp2;
+            }
+            else {
+                this.sprite = this.spriteUp1;
+            }
         }
-        if (y > 0) {
-            this.y += random;
+        else if (y > 0) {
+            this.y -= this.random * 20;
+            if (this.sprite === this.spriteUp1) {
+                this.sprite = this.spriteUp2;
+            }
+            else {
+                this.sprite = this.spriteUp1;
+            }
         }
-        if (x < 0) {
-            this.x -= random;
+        else if (x < 0) {
+            this.x += this.random * 20;
+            if (this.sprite === this.spriteUp1) {
+                this.sprite = this.spriteUp2;
+            }
+            else {
+                this.sprite = this.spriteUp1;
+            }
         }
-        if (y < 0) {
-            this.y -= random;
+        else if (y < 0) {
+            this.y += this.random * 20;
+            if (this.sprite === this.spriteUp1) {
+                this.sprite = this.spriteUp2;
+            }
+            else {
+                this.sprite = this.spriteUp1;
+            }
         }
     };
     return Jelly;
