@@ -30,7 +30,9 @@ class Game {
 
         //collision
         if(Utils.checkCollision(this.hero, this.jelly)) {
-            console.log("Fuck you");
+            // console.log("Fuck you");
+            Battlescreen.getInstance();
+            this.canvas.remove();
         }
 
 
