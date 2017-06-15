@@ -24,7 +24,7 @@ var Game = (function () {
         var _this = this;
         this.hero.update();
         if (Utils.checkCollision(this.hero, this.jelly)) {
-            console.log("Fuck you");
+            Battlescreen.getInstance();
         }
         this.draw();
         requestAnimationFrame(function () { return _this.update(); });
@@ -285,4 +285,36 @@ var Jelly = (function (_super) {
     };
     return Jelly;
 }(Enemy));
+var Battlescreen = (function () {
+    function Battlescreen() {
+        var _this = this;
+        this.x = 0;
+        this.y = 0;
+        this.sprite = new Image(4096, 4096);
+        this.sprite.src = '../docs/images/battlescreen.png';
+        console.log(this.sprite);
+        this.canvas = document.getElementsByTagName("canvas")[0];
+        this.canvas.width = Battlescreen.width;
+        this.canvas.height = Battlescreen.height;
+        this.context = this.canvas.getContext('2d');
+        requestAnimationFrame(function () { return _this.update(); });
+    }
+    Battlescreen.prototype.update = function () {
+        var _this = this;
+        this.draw();
+        requestAnimationFrame(function () { return _this.update(); });
+    };
+    Battlescreen.prototype.draw = function () {
+        this.context.drawImage(this.sprite, this.x, this.y);
+    };
+    Battlescreen.getInstance = function () {
+        if (!Battlescreen.instance) {
+            Battlescreen.instance = new Battlescreen();
+        }
+        return Battlescreen.instance;
+    };
+    return Battlescreen;
+}());
+Battlescreen.width = window.innerWidth;
+Battlescreen.height = window.innerHeight;
 //# sourceMappingURL=main.js.map
