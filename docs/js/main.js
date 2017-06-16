@@ -17,15 +17,14 @@ var Game = (function () {
         this.context = this.canvas.getContext('2d');
         this.hero = new Hero();
         this.jelly = new Jelly(this.hero);
-        this.map = new Map();
+        this.activeScreen = new Gamescreens.MapScreen();
         requestAnimationFrame(function () { return _this.update(); });
     }
     Game.prototype.update = function () {
         var _this = this;
         this.hero.update();
         if (Utils.checkCollision(this.hero, this.jelly)) {
-            Battlescreen.getInstance();
-            this.canvas.remove();
+            this.activeScreen = new Gamescreens.Battlescreen();
         }
         this.draw();
         requestAnimationFrame(function () { return _this.update(); });
@@ -34,9 +33,7 @@ var Game = (function () {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.fillStyle = "black";
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.map.draw();
-        this.hero.draw();
-        this.jelly.draw();
+        this.activeScreen.draw();
     };
     Game.getInstance = function () {
         if (!Game.instance) {
@@ -286,39 +283,52 @@ var Jelly = (function (_super) {
     };
     return Jelly;
 }(Enemy));
-var Battlescreen = (function () {
-    function Battlescreen() {
-        var _this = this;
-        this.x = 0;
-        this.y = 0;
-        this.sprite = new Image(4096, 4096);
-        this.sprite.src = '../docs/images/battlescreen.png';
-        console.log(this.sprite);
-        this.canvas = document.getElementsByTagName("canvas")[0];
-        this.canvas.width = Battlescreen.width;
-        this.canvas.height = Battlescreen.height;
-        this.context = this.canvas.getContext('2d');
-        requestAnimationFrame(function () { return _this.update(); });
-    }
-    Battlescreen.prototype.update = function () {
-        var _this = this;
-        this.draw();
-        requestAnimationFrame(function () { return _this.update(); });
-    };
-    Battlescreen.prototype.draw = function () {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.fillStyle = "black";
-        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.context.drawImage(this.sprite, this.x, this.y);
-    };
-    Battlescreen.getInstance = function () {
-        if (!Battlescreen.instance) {
-            Battlescreen.instance = new Battlescreen();
+var Gamescreens;
+(function (Gamescreens) {
+    var MapScreen = (function () {
+        function MapScreen() {
+            this.x = 0;
+            this.y = 0;
+            this.sprite = new Image(4096, 4096);
+            this.sprite.src = '../docs/images/map.png';
+            this.sprite.width = window.innerWidth;
+            this.sprite.height = window.innerHeight;
+            console.log(this.sprite);
         }
-        return Battlescreen.instance;
-    };
-    return Battlescreen;
-}());
-Battlescreen.width = window.innerWidth;
-Battlescreen.height = window.innerHeight;
+        MapScreen.prototype.draw = function () {
+            Game.getInstance().context.drawImage(this.sprite, this.x, this.y);
+            Game.getInstance().hero.draw();
+            Game.getInstance().jelly.draw();
+        };
+        MapScreen.prototype.update = function () {
+        };
+        return MapScreen;
+    }());
+    Gamescreens.MapScreen = MapScreen;
+})(Gamescreens || (Gamescreens = {}));
+var Gamescreens;
+(function (Gamescreens) {
+    var Battlescreen = (function () {
+        function Battlescreen() {
+            var _this = this;
+            this.x = 0;
+            this.y = 0;
+            this.sprite = new Image(3834, 2160);
+            this.sprite.src = '../docs/images/battlescreen.png';
+            requestAnimationFrame(function () { return _this.update(); });
+        }
+        Battlescreen.prototype.update = function () {
+            var _this = this;
+            this.draw();
+            requestAnimationFrame(function () { return _this.update(); });
+        };
+        Battlescreen.prototype.draw = function () {
+            Game.getInstance().context.drawImage(this.sprite, this.x, this.y);
+        };
+        return Battlescreen;
+    }());
+    Battlescreen.width = window.innerWidth;
+    Battlescreen.height = window.innerHeight;
+    Gamescreens.Battlescreen = Battlescreen;
+})(Gamescreens || (Gamescreens = {}));
 //# sourceMappingURL=main.js.map
