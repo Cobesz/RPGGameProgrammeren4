@@ -118,8 +118,6 @@ var Hero = (function (_super) {
         _this.y = 0;
         _this.width = 25;
         _this.height = 50;
-        _this.health = 10;
-        _this.behaviour = new Alive();
         _this.spriteUp1 = new Image(_this.width, _this.height);
         _this.spriteUp2 = new Image(_this.width, _this.height);
         _this.spriteLeft1 = new Image(_this.width, _this.height);
@@ -157,7 +155,6 @@ var Hero = (function (_super) {
                 o.notify(this.speedHorizontal, this.speedVertical);
             }
         }
-        this.behaviour.update(this.health);
     };
     Hero.prototype.onKeyDown = function (event) {
         if (event.key == 'ArrowLeft') {
@@ -285,6 +282,34 @@ var Jelly = (function (_super) {
 }(Enemy));
 var Gamescreens;
 (function (Gamescreens) {
+    var Battlescreen = (function () {
+        function Battlescreen() {
+            var _this = this;
+            this.x = 0;
+            this.y = 0;
+            this.sprite = new Image(3834, 2160);
+            this.sprite.src = '../docs/images/battlescreen.png';
+            this.battleHero = new BattleHero();
+            this.battleJelly = new BattleJelly;
+            requestAnimationFrame(function () { return _this.update(); });
+        }
+        Battlescreen.prototype.update = function () {
+            var _this = this;
+            this.draw();
+            requestAnimationFrame(function () { return _this.update(); });
+        };
+        Battlescreen.prototype.draw = function () {
+            Game.getInstance().context.drawImage(this.sprite, this.x, this.y);
+            this.battleHero.draw();
+        };
+        return Battlescreen;
+    }());
+    Battlescreen.width = window.innerWidth;
+    Battlescreen.height = window.innerHeight;
+    Gamescreens.Battlescreen = Battlescreen;
+})(Gamescreens || (Gamescreens = {}));
+var Gamescreens;
+(function (Gamescreens) {
     var MapScreen = (function () {
         function MapScreen() {
             this.x = 0;
@@ -306,29 +331,38 @@ var Gamescreens;
     }());
     Gamescreens.MapScreen = MapScreen;
 })(Gamescreens || (Gamescreens = {}));
-var Gamescreens;
-(function (Gamescreens) {
-    var Battlescreen = (function () {
-        function Battlescreen() {
-            var _this = this;
-            this.x = 0;
-            this.y = 0;
-            this.sprite = new Image(3834, 2160);
-            this.sprite.src = '../docs/images/battlescreen.png';
-            requestAnimationFrame(function () { return _this.update(); });
-        }
-        Battlescreen.prototype.update = function () {
-            var _this = this;
-            this.draw();
-            requestAnimationFrame(function () { return _this.update(); });
-        };
-        Battlescreen.prototype.draw = function () {
-            Game.getInstance().context.drawImage(this.sprite, this.x, this.y);
-        };
-        return Battlescreen;
-    }());
-    Battlescreen.width = window.innerWidth;
-    Battlescreen.height = window.innerHeight;
-    Gamescreens.Battlescreen = Battlescreen;
-})(Gamescreens || (Gamescreens = {}));
+var BattleJelly = (function (_super) {
+    __extends(BattleJelly, _super);
+    function BattleJelly() {
+        return _super.call(this) || this;
+    }
+    return BattleJelly;
+}(Enemy));
+var BattleHero = (function (_super) {
+    __extends(BattleHero, _super);
+    function BattleHero() {
+        var _this = _super.call(this) || this;
+        _this.x = 0;
+        _this.y = 0;
+        _this.width = 29;
+        _this.height = 28;
+        _this.health = 10;
+        _this.behaviour = new Alive();
+        _this.battleStance = new Image(_this.width, _this.height);
+        _this.attack1 = new Image(_this.width, _this.height);
+        _this.attack2 = new Image(_this.width, _this.height);
+        _this.attack3 = new Image(_this.width, _this.height);
+        _this.battleStance.src = '../docs/images/battle1.png';
+        _this.attack1.src = '../docs/images/attack1.png';
+        _this.attack2.src = '../docs/images/attack2.png';
+        _this.attack3.src = '../docs/images/attack3.png';
+        _this.sprite = _this.battleStance;
+        _this.update();
+        return _this;
+    }
+    BattleHero.prototype.update = function () {
+        this.behaviour.update(this.health);
+    };
+    return BattleHero;
+}(GameObject));
 //# sourceMappingURL=main.js.map

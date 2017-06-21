@@ -12,8 +12,7 @@ class Hero extends GameObject implements Subject {
     private spriteDown2: HTMLImageElement;
     private spriteRight1: HTMLImageElement;
     private spriteRight2: HTMLImageElement;
-    private behaviour: Behaviour;
-    protected health: number;
+
 
     constructor() {
         super();
@@ -21,8 +20,7 @@ class Hero extends GameObject implements Subject {
         this.y = 0;
         this.width = 25;
         this.height= 50;
-        this.health = 10;
-        this.behaviour = new Alive();
+
 
 
         this.spriteUp1 = new Image(this.width, this.height);
@@ -70,8 +68,6 @@ class Hero extends GameObject implements Subject {
                 o.notify(this.speedHorizontal, this.speedVertical);
             }
         }
-
-        this.behaviour.update(this.health);
     }
 
     public onKeyDown(event: KeyboardEvent) {

@@ -5,8 +5,8 @@ namespace Gamescreens {
         private y: number;
         private sprite: HTMLImageElement;
 
-        public canvas: HTMLCanvasElement;
-        public context: CanvasRenderingContext2D;
+        public battleHero: BattleHero;
+        public battleJelly: BattleJelly;
 
         public static width: number = window.innerWidth;
         public static height: number = window.innerHeight;
@@ -17,10 +17,10 @@ namespace Gamescreens {
 
             this.sprite = new Image(3834, 2160);
             this.sprite.src = '../docs/images/battlescreen.png';
-            // this.sprite.width = 100;
-            // this.sprite.height = 100;
-            // console.log(this.sprite.width);
-            // console.log(this.sprite.height);
+
+            this.battleHero = new BattleHero();
+            this.battleJelly = new BattleJelly;
+
 
 
             requestAnimationFrame(() => this.update());
@@ -35,6 +35,9 @@ namespace Gamescreens {
 
         public draw() {
             Game.getInstance().context.drawImage(this.sprite, this.x, this.y);
+
+            this.battleHero.draw();
+            // this.battleJelly.draw();
 
         }
     }
