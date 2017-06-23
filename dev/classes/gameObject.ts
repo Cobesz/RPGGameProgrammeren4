@@ -7,7 +7,9 @@ abstract class GameObject implements IDrawable {
     protected speedHorizontal: number = 0;
     protected speedVertical : number = 0;
 
-    protected sprite: HTMLImageElement;
+    public sprite: HTMLImageElement;
+
+    protected random: number;
 
     constructor() {
 

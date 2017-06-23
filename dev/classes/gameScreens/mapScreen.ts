@@ -1,6 +1,6 @@
 namespace Gamescreens {
     export class MapScreen implements GameScreen, IDrawable{
-        public game: Game;
+        // public game: Game;
 
         private x: number;
         private y: number;

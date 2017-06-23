@@ -4,7 +4,7 @@ class Game {
     public hero: Hero;
     public jelly: Jelly;
 
-    private activeScreen: Gamescreens.GameScreen;
+    public activeScreen: Gamescreens.GameScreen;
 
     public canvas: HTMLCanvasElement;
     public context: CanvasRenderingContext2D;
@@ -23,6 +23,10 @@ class Game {
         this.jelly = new Jelly(this.hero);
         this.activeScreen = new Gamescreens.MapScreen();
 
+
+
+
+
         requestAnimationFrame(() => this.update());
     }
 
@@ -32,7 +36,11 @@ class Game {
 
         //collision
         if (Utils.checkCollision(this.hero, this.jelly)) {
-            // console.log("Fuck you");
+            this.activeScreen = null;
+
+            //This is a hack for stopping the collision on the background, for performance purposes
+            this.jelly.x = -100;
+
             this.activeScreen = new Gamescreens.Battlescreen();
         }
 
