@@ -1,12 +1,13 @@
 class Enemy extends GameObject implements Observer {
 
     protected hero;
+    protected battleHero;
 
     protected spriteUp1: HTMLImageElement;
     protected spriteUp2: HTMLImageElement;
 
     protected behaviour: Behaviour;
-    protected health: number;
+    public health: number;
     protected random: number;
 
     constructor() {
@@ -17,6 +18,10 @@ class Enemy extends GameObject implements Observer {
 
 
     notify(x, y) {
+
+    }
+
+    getsDamage(damage) {
 
     }
 }

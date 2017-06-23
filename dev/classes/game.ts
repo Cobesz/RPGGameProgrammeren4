@@ -1,8 +1,10 @@
 class Game {
     private static instance: Game;
-    private hero: Hero;
-    private jelly: Jelly;
-    private map: Map;
+
+    public hero: Hero;
+    public jelly: Jelly;
+
+    public activeScreen: Gamescreens.GameScreen;
 
     public canvas: HTMLCanvasElement;
     public context: CanvasRenderingContext2D;
@@ -19,7 +21,11 @@ class Game {
 
         this.hero = new Hero();
         this.jelly = new Jelly(this.hero);
-        this.map = new Map();
+        this.activeScreen = new Gamescreens.MapScreen();
+
+
+
+
 
         requestAnimationFrame(() => this.update());
     }
@@ -29,10 +35,13 @@ class Game {
         this.hero.update();
 
         //collision
-        if(Utils.checkCollision(this.hero, this.jelly)) {
-            // console.log("Fuck you");
-            Battlescreen.getInstance();
-            this.canvas.remove();
+        if (Utils.checkCollision(this.hero, this.jelly)) {
+            this.activeScreen = null;
+
+            //This is a hack for stopping the collision on the background, for performance purposes
+            this.jelly.x = -100;
+
+            this.activeScreen = new Gamescreens.Battlescreen();
         }
 
 
@@ -45,9 +54,8 @@ class Game {
 
         this.context.fillStyle = "black";
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.map.draw();
-        this.hero.draw();
-        this.jelly.draw();
+        this.activeScreen.draw();
+
 
     }
 
@@ -57,7 +65,4 @@ class Game {
         }
         return Game.instance;
     }
-
-
-
 }

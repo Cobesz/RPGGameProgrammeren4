@@ -10,8 +10,6 @@ class Map implements IDrawable {
         this.sprite = new Image(4096, 4096);
         this.sprite.src = '../docs/images/map.png';
         console.log(this.sprite);
-
-
     }
 
     public draw() {
