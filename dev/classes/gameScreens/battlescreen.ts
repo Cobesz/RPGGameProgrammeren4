@@ -23,6 +23,7 @@ namespace Gamescreens {
 
             this.drawElements();
 
+            alert("Press space to attack the Jelly!")
 
             requestAnimationFrame(() => this.update());
         }

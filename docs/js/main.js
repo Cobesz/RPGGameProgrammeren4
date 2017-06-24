@@ -392,6 +392,7 @@ var Gamescreens;
             this.battleHero = new BattleHero();
             this.battleJelly = new BattleJelly(this.battleHero);
             this.drawElements();
+            alert("Press space to attack the Jelly!");
             requestAnimationFrame(function () { return _this.update(); });
         }
         Battlescreen.prototype.update = function () {

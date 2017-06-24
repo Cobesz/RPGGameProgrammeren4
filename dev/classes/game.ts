@@ -24,9 +24,6 @@ class Game {
         this.activeScreen = new Gamescreens.MapScreen();
 
 
-
-
-
         requestAnimationFrame(() => this.update());
     }
 
