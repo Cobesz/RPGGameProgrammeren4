@@ -43,35 +43,4 @@ De game class heb ik tot singleton gemaakt, deze is vervolgens overal te bereike
 
 De UML is te vinden in de root folder van de repo.
 
-
-# Peer Review 2 door Roy Sijnesael (15-06)
-
-Het project voldoet in de volgende opzichten:
-
-- Klassendiagram (alleen niet geupdated)
-- Speelbare game met begin en eind, zonder bugs
-- encapsulation, composition, inheritance
-- Singleton, Observer, Strategy
-- interface, static
-- Game Loop
-
-Helaas zijn de andere eisen niet terug gekomen in de game.
-
-## Beoordeling
-
-De game is speelbaar, maar heeft geen duidelijk einde. Er missen ook een hoop eisen: 
-
-- Gebruik van een library 
-- Abstracts 
-- Polymorphism 
-- Enumarations 
-- Namespaces
-- Readme.md file waarin bovenstaande wordt toegelicht
-
-Hierdoor krijgt het project van mij een voldoende.
-
-Of nee toch niet.
-
-![UML](./docs/images/heinrich.jpg?raw=true "heinrich")
-
-
+Herinlevering week 4 - mei 2018
