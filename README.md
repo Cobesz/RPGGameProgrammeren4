@@ -45,4 +45,4 @@ De UML is te vinden in de root folder van de repo.
 
 Herinlevering week 4 - mei 2018
 
-FORK: https://github.com/Cobesz/eindproject
+Pull-request: https://github.com/TBRRayz/eindproject/pull/3
