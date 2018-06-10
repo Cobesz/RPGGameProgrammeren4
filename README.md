@@ -46,3 +46,5 @@ De UML is te vinden in de root folder van de repo.
 Herinlevering week 4 - mei 2018
 
 Pull-request: https://github.com/TBRRayz/eindproject/pull/3
+
+Peer-review week 6: https://github.com/RoySijnesael/PRG08-Herkansing/issues/3
